@@ -9,21 +9,21 @@ use Drupal\Core\Controller\ControllerBase;
  */
 class ComentariosController extends ControllerBase {
 
-  public function comments_list() {
+  public function commentsList() {
 
     $comentarios = [
-      ['descripcion' => 'Muy buen producto'],
-      ['descripcion' => 'Lo recomiendo'],
-      ['descripcion' => 'No lo recomiendo'],
-      ['descripcion' => 'Muy contento con el resultado'],
-      ['descripcion' => 'Sin ninguna duda lo volveria a comprar'],
-      ['descripcion' => 'Gracias por el servicio, muy atentos!'],
+      ['name' => 'Muy buen producto'],
+      ['name'  => 'Lo recomiendo'],
+      ['name'  => 'No lo recomiendo'],
+      ['name'  => 'Muy contento con el resultado'],
+      ['name'  => 'Sin ninguna duda lo volveria a comprar'],
+      ['name'  => 'Gracias por el servicio, muy atentos!'],
     ];
 
     return [
       '#theme' => 'comments_list',
       '#items' => $comentarios,
-      '#title' => $this->t('Listado de comentarios'),
+      '#title' => $this->t('Listado de comentarios')
     ];
   }
 }
