@@ -5,3 +5,11 @@ module_comentarios.listaComentarios:
       _title: 'Listado de comentarios'
   requirements:
       _permission: 'access content'
+
+module_comentarios.commentsform:
+  path: '/comments-form'
+  defaults:
+    _form: '\Drupal\module_comentarios\Form\CommentsForm'
+    _title: 'Métrica de comentarios'
+  requirements:
+    _permission: 'access content'

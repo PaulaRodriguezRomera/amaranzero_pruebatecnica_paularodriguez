@@ -3,9 +3,11 @@
 namespace Drupal\module_comentarios\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormInterface;
+
 
 /**
- * Block para filtrar comentarios.
+ * Block para métrica de comentarios.
  *
  * @Block(
  *   id = "module_comentarios",
@@ -17,11 +19,10 @@ class ComentariosBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function build() {
-    return [
-      '#type' => 'markup',
-      '#markup' => $this->t('Resultado del número de comentarios.'),
-    ];
+  public function build(){
+    $form = \Drupal::formBuilder()->getForm('Drupal\module_comentarios\Form\CommentsForm');
+    return $form;
   }
-
 }
+
+
