@@ -1,0 +1,7 @@
+module_comentarios.listaComentarios:
+  path: '/listadoComentarios'
+  defaults:
+      _controller: '\Drupal\module_comentarios\Controller\ComentariosController::commentsList'
+      _title: 'Listado de comentarios'
+  requirements:
+      _permission: 'access content'

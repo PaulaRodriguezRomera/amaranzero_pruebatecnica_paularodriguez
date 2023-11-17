@@ -2,12 +2,14 @@
 
 namespace Drupal\module_comentarios\Controller;
 
-/**
- * This is the Comentarios controller.
- */
-class ComentariosController {
+use Drupal\Core\Controller\ControllerBase;
 
-  public function commentsList() {
+/**
+ * This is the Comments controller.
+ */
+class ComentariosController extends ControllerBase {
+
+  public function comments_list() {
 
     $comentarios = [
       ['descripcion' => 'Muy buen producto'],
@@ -18,13 +20,10 @@ class ComentariosController {
       ['descripcion' => 'Gracias por el servicio, muy atentos!'],
     ];
 
-    $ourComments = '';
-    foreach ($comentarios as $comentario) {
-      $ourComments .= '<li>' . $comentario['descripcion'] . '</li>';
-    }
     return [
-      '#type' => 'markup',
-      '#markup' => '<ol>' . $ourComments . '</ol>'
+      '#theme' => 'comments_list',
+      '#items' => $comentarios,
+      '#title' => $this->t('Listado de comentarios'),
     ];
   }
 }

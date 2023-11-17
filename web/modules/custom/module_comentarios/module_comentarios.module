@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Implementing hooks
+ */
+
+/**
+ * implements hooks theme.
+ */
+
+function module_comentarios_theme($existing, $type, $theme, $path) {
+
+    return [
+      'comments_list' => [
+        'variables' => ['items' => [], 'title' => ''],
+      ]
+    ];
+}
