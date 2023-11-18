@@ -1,11 +1,3 @@
-module_comentarios.listaComentarios:
-  path: '/listadoComentarios'
-  defaults:
-      _controller: '\Drupal\module_comentarios\Controller\ComentariosController::commentsList'
-      _title: 'Listado de comentarios'
-  requirements:
-      _permission: 'access content'
-
 module_comentarios.commentsform:
   path: '/comments-form'
   defaults:
@@ -20,3 +12,20 @@ module_comentarios.getCommentList:
       _controller: '\Drupal\module_comentarios\Controller\ComentariosController::getCommentList'
     requirements:
       _permission: 'access content'
+
+module_comentarios.getFiveComments:
+  path: '/get-five-comments'
+  defaults:
+    _controller: '\Drupal\module_comentarios\Controller\ComentariosController::getFiveComments'
+  requirements:
+    _permission: 'access content'
+
+module_comentarios.totalNumberWords:
+  path: '/total-number-words'
+  defaults:
+    _controller: '\Drupal\module_comentarios\Controller\ComentariosController::totalNumberWords'
+  requirements:
+    _permission: 'access content'
+
+
+

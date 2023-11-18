@@ -10,24 +10,6 @@ use Drupal\Core\Database\Database;
  */
 class ComentariosController extends ControllerBase {
 
-  public function commentsList() {
-
-    $comentarios = [
-      ['name' => 'Muy buen producto'],
-      ['name'  => 'Lo recomiendo'],
-      ['name'  => 'No lo recomiendo'],
-      ['name'  => 'Muy contento con el resultado'],
-      ['name'  => 'Sin ninguna duda lo volveria a comprar'],
-      ['name'  => 'Gracias por el servicio, muy atentos!'],
-    ];
-
-    return [
-      '#theme' => 'comments_list',
-      '#items' => $comentarios,
-      '#title' => $this->t('Listado de comentarios')
-    ];
-  }
-
   public function getCommentList(){
 
     $query = \Drupal::database();
@@ -56,5 +38,72 @@ class ComentariosController extends ControllerBase {
         $build,
         '#title' => 'Lista de comentarios'
       ];
+    }
+
+    public function getFiveComments(){
+      $query = \Drupal::database();
+      $result = $query->select('comment_field_data', 'comments')
+        ->fields ('comments', ['subject', 'entity_type','field_name'])
+        ->orderBy('comments.created', 'DESC')
+        ->RANGE(0,5)
+        ->execute()->fetchall(\PDO::FETCH_OBJ);
+      $data = [];
+
+      foreach($result as $row) {
+        $data[] = [
+          'subject' => $row->subject,
+          'entity_type' => $row->entity_type,
+          'field_name' => $row->field_name,
+        ];
+      }
+
+      $header = array('Subject', 'Entity type', 'Field name');
+
+      $build['table'] = [
+        '#type' =>'table',
+        '#header' => $header,
+        '#rows' => $data
+      ];
+
+      return [
+        $build,
+        '#title' => 'Últimos cinco comentarios'
+      ];
+
+    }
+
+    public function totalNumberWords() {
+
+      $query = \Drupal::database();
+      $result = $query->select('comment__comment_body', 'comment')
+        ->fields ('comment', ['comment_body_value'])
+        ->execute()->fetchall(\PDO::FETCH_OBJ);
+      $data = [];
+
+      foreach($result as $row) {
+        $comment_body = $row->comment_body_value;
+        $word_count = str_word_count(strip_tags($comment_body));
+
+        $data[] = [
+          'comment_body_value' => $comment_body,
+          'value_words' => $word_count,
+        ];
+      }
+
+      $header = array('Comentarios', 'Total Palabras');
+      $footer = ('Total: ');
+
+      $build['table'] = [
+        '#type' =>'table',
+        '#header' => $header,
+        '#rows' => $data,
+        '#footer' => $footer
+      ];
+
+      return [
+        $build,
+        '#title' => 'Número total de palabras'
+      ];
+
     }
 }
