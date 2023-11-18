@@ -16,6 +16,7 @@ class ComentariosController extends ControllerBase {
     $result = $query->select('comment_field_data', 'comments')
             ->fields ('comments', ['subject', 'entity_type','field_name'])
             ->execute()->fetchall(\PDO::FETCH_OBJ);
+
     $data = [];
 
     foreach($result as $row) {
@@ -78,11 +79,15 @@ class ComentariosController extends ControllerBase {
       $result = $query->select('comment__comment_body', 'comment')
         ->fields ('comment', ['comment_body_value'])
         ->execute()->fetchall(\PDO::FETCH_OBJ);
+
       $data = [];
+      $totalWords = 0;
 
       foreach($result as $row) {
         $comment_body = $row->comment_body_value;
         $word_count = str_word_count(strip_tags($comment_body));
+
+        $totalWords += $word_count;
 
         $data[] = [
           'comment_body_value' => $comment_body,
@@ -90,14 +95,17 @@ class ComentariosController extends ControllerBase {
         ];
       }
 
+      $data[] = [
+        'comment_body_value' => 'Total:',
+        'value_words' => $totalWords,
+      ];
+
       $header = array('Comentarios', 'Total Palabras');
-      $footer = ('Total: ');
 
       $build['table'] = [
         '#type' =>'table',
         '#header' => $header,
         '#rows' => $data,
-        '#footer' => $footer
       ];
 
       return [
