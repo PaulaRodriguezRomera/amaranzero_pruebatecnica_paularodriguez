@@ -13,3 +13,10 @@ module_comentarios.commentsform:
     _title: 'Métrica de comentarios'
   requirements:
     _permission: 'access content'
+
+module_comentarios.getCommentList:
+    path: '/comments-list'
+    defaults:
+      _controller: '\Drupal\module_comentarios\Controller\ComentariosController::getCommentList'
+    requirements:
+      _permission: 'access content'
