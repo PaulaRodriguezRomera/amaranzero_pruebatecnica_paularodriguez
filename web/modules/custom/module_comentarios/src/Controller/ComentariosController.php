@@ -4,30 +4,29 @@ namespace Drupal\module_comentarios\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Database;
+use mysql_xdevapi\Table;
 
 /**
  * This is the Comments controller.
  */
 class ComentariosController extends ControllerBase {
 
-  public function getCommentList(){
+    public function getCommentList(){
 
-    $query = \Drupal::database();
-    $result = $query->select('comment_field_data', 'comments')
-            ->fields ('comments', ['subject', 'entity_type','field_name'])
-            ->execute()->fetchall(\PDO::FETCH_OBJ);
+      $query = \Drupal::database();
+      $result = $query->select('comment__comment_body', 'comment')
+        ->fields ('comment', ['comment_body_value'])
+        ->execute()->fetchall(\PDO::FETCH_OBJ);
 
-    $data = [];
+      $data = [];
 
-    foreach($result as $row) {
-      $data[] = [
-        'subject' => $row->subject,
-        'entity_type' => $row->entity_type,
-        'field_name' => $row->field_name,
-      ];
-    }
+      foreach($result as $row) {
+        $data[] = [
+          'comment_body_value' => $row->comment_body_value,
+        ];
+      }
 
-      $header = array('Subject', 'Entity type', 'Field name');
+      $header = array('Número total de comentarios');
 
       $build['table'] = [
         '#type' =>'table',
@@ -37,28 +36,28 @@ class ComentariosController extends ControllerBase {
 
       return [
         $build,
-        '#title' => 'Lista de comentarios'
+        '#title' => 'Número total de comentarios'
       ];
+
     }
 
     public function getFiveComments(){
+
       $query = \Drupal::database();
-      $result = $query->select('comment_field_data', 'comments')
-        ->fields ('comments', ['subject', 'entity_type','field_name'])
-        ->orderBy('comments.created', 'DESC')
-        ->RANGE(0,5)
+      $result = $query->select('comment__comment_body', 'comment')
+        ->fields ('comment', ['comment_body_value'])
+        ->range(0,5)
         ->execute()->fetchall(\PDO::FETCH_OBJ);
+
       $data = [];
 
       foreach($result as $row) {
         $data[] = [
-          'subject' => $row->subject,
-          'entity_type' => $row->entity_type,
-          'field_name' => $row->field_name,
+          'comment_body_value' => $row->comment_body_value,
         ];
       }
 
-      $header = array('Subject', 'Entity type', 'Field name');
+      $header = array('Últimos cinco comentarios');
 
       $build['table'] = [
         '#type' =>'table',

@@ -1,4 +1,4 @@
-name: "Comentarios"
+name: "Métrica de comentarios"
 description: "Modulo personalizado para filtrar los comentarios del usuario"
 type: module
 core_version_requirement: ^8 || ^9 || ^10
