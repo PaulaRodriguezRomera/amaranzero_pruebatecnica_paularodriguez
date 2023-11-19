@@ -1,6 +1,7 @@
-{{ attach_library('module_comentarios/comentarios-style') }}
-<h4>{{ title }}</h4>
-<body>
-   <p><a href="{{ path('module_comentarios.totalNumberWords') }}">Total words</a></p>
-  {% endfor %}
-</body>
+{{ form.form_build_id }}
+{{ form.form_token }}
+{{ form.form_id }}
+
+
+<h1>rendering form</h1>
+{{ form }}
