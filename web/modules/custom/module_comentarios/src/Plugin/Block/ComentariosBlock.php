@@ -22,9 +22,7 @@ class ComentariosBlock extends BlockBase {
    */
   public function build(){
     $form = \Drupal::formBuilder()->getForm('Drupal\module_comentarios\Form\CommentsForm');
-
     return $form;
-
   }
 }
 

@@ -1,7 +1,6 @@
 {{ attach_library('module_comentarios/comentarios-style') }}
 <h4>{{ title }}</h4>
-<ol>
-  {% for item in items %}
-    <li>{{ item.name }}</li>
+<body>
+   <p><a href="{{ path('module_comentarios.totalNumberWords') }}">Total words</a></p>
   {% endfor %}
-</ol>
+</body>
